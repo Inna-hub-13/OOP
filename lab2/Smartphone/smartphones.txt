@@ -1,0 +1,9 @@
+SamsungS5 900 Android
+iPhone16 1800 IoS26
+Motorola 900 Android
+iPhone17 2900 IoS26
+Nokia26 500 Windows
+SamsungA56 4000 Android
+SamsungZ 2000 Android
+SmasungA30 870 Android
+iPhone17 2900.90 IoS26
