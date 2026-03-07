@@ -164,14 +164,14 @@ Client& Client::operator = (Client& client){
 Bank::Bank(){
 
     tableEnd = 0;
-    size = 2;
-    table = new Client[2];
+    size = fNumber.Get();
+    table = new Client[size];
 }
 
 Bank::Bank(int size){
 
     tableEnd = 0;
-    this->size = size;
+    this->size = fNumber.Set(size);
     table = new Client[size];
 }
 
@@ -180,23 +180,24 @@ Bank::~Bank(){
     delete[] table;
 }
 
-int Bank::addClient(Client& client){
+int Bank::addClient(Client& client) {
 
-    if(size == tableEnd){
+    if (size == tableEnd) {
 
         printf("Bank needs resizing!\n");
-        Client* tableNew = new Client[size * 2];
-        if(!tableNew)
+        int newSize = fNumber.Set(size);
+        Client* tableNew = new Client[newSize];
+        if (!tableNew)
             return -1;
 
         int i;
-        for(i = 0; i< size; i++)
+        for (i = 0; i < size; i++)
             *(tableNew + i) = *(table + i);
-        
+
         delete[] table;
         table = tableNew;
         tableNew = nullptr;
-        size = size * 2;
+        size = newSize;
     }
 
     *(table + tableEnd) = client;
@@ -234,4 +235,29 @@ void Bank::print(){
     for(; i < tableEnd; i++)
         (table + i)->print();
     printf("\n\n");
+
+}
+
+Fibonacci::Fibonacci() {
+
+    f1 = 1;
+    f2 = 1;
+}
+
+int Fibonacci::Get() {
+
+    int nextFibonacci = f1 + f2;
+    f1 = f2;
+    f2 = nextFibonacci;
+    return nextFibonacci;
+}
+
+int Fibonacci::Set(int size) {
+
+    if (size < f2)
+        return f2;
+
+    while (size >= Get());
+
+    return Get();
 }
