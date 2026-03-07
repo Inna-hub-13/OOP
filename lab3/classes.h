@@ -39,9 +39,23 @@ class Client{
     Client& operator = (Client&);
 };
 
+class Fibonacci {
+
+    int f1;
+    int f2;
+
+public:
+    Fibonacci();
+    // Returns the next Fibonacci number
+    int Get();
+    // Returns the second to next Fibonacci number
+    int Set(int);
+};
+
 class Bank{
 
     int tableEnd;
+    Fibonacci fNumber;
     int size;
     Client* table;
 
@@ -52,4 +66,5 @@ class Bank{
     int addClient(Client&);
     int deleteClient(int);
     void print();
+
 };
