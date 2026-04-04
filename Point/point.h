@@ -1,3 +1,5 @@
+#pragma once
+
 class Point{
 
     double x, y;
@@ -6,3 +8,6 @@ class Point{
     Point(double xi, double yi){x = xi; y = yi;}
     virtual double area(){return 0;}
 };
+
+
+double areaDiff(Point*, Point*);
