@@ -1,0 +1,10 @@
+a int;
+b float;
+abba char;
+a float;
+haha Int;
+ca char;
+h float;
+g double;
+ba float;
+djjd char;
