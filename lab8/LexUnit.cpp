@@ -23,7 +23,7 @@ LexUnit::LexUnit(char* iden, char* typ){
      if((strcmp(typ, "int") != 0) && (strcmp(typ, "char") !=0) && (strcmp(typ, "float") != 0) &&
                 (strcmp(typ, "double") != 0))
 
-        set(iden, typ, "invalid\0", -1);
+        set(iden, typ, "invalid\0", 10000000);
     
     else{
 
