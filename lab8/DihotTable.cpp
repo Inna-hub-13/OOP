@@ -46,6 +46,11 @@ int DihotTable::BinarySearch(char* iden){
     if(res > 0)
         return length;
 
+    // Checks if the element to be added should be placed first
+    res = strcmp(iden, (table + 0)->getIdentifier());
+    if(res < 0)
+        return -1;
+
     while(l <= r){
         
         mid = (l + r)/2;
@@ -71,11 +76,12 @@ int DihotTable::Add(LexUnit* lU){
     int i = 0, index = 0, pos = 0;
     pos = BinarySearch(lU->getIdentifier());
 
-    // Element already in table
-    if(pos < length)
-        return -1;
+    if(pos == -1)
+        index = 0;
     else if(pos == length)
         index = pos;
+    else if(pos < length) // Element already in table
+        return -1;
     else
         index = pos - length;
 
