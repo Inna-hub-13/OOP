@@ -17,20 +17,27 @@ int HashTable::HashFunction(char* iden){
 
 int HashTable::Search(char* iden){
 
-    int hashCode = HashFunction(iden);
-
-    // Element already in hash table
-    if(strcmp(iden, (table + hashCode)->getIdentifier()) == 0)
-        return hashCode + L;
+   int hashCode = HashFunction(iden);
 
     int start;
-    for(start = hashCode; start < L; start++)
+    for(start = hashCode; start < L; start++){
+
+
+        if(strcmp(iden, (table + start)->getIdentifier()) == 0)
+            return start + L;
+
         if(strcmp((table + start)->getIdentifier(), "") == 0)
             return start;
+    }
         
-    for(start = 0; start < hashCode; start++)
+    for(start = 0; start < hashCode; start++){
+
+        if(strcmp(iden, (table + start)->getIdentifier()) == 0)
+            return start + L;
+
         if(strcmp((table + start)->getIdentifier(), "") == 0)
             return start;
+    }
     
     return -1;
 }
