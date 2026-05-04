@@ -70,9 +70,9 @@ template<typename T>
 
 class Vector{
 
-    T* vector = nullptr;
-    unsigned _capacity;
-    unsigned _size;
+    T* vector;
+    size_t _capacity;
+    size_t _size;
     void expand(size_t);
 
     public:
@@ -89,11 +89,13 @@ class Vector{
     !!!Move Assignment Operator*/
 
     Vector();
-    Vector(Vector&);
-    ~Vector(){delete[] vector; vector = nullptr;}
+    Vector(const Vector&);
+    Vector(Vector&&);
+    ~Vector();
     T& operator[](size_t);
     const T& operator[](size_t) const;
     Vector& operator=(const Vector&);
+    Vector& operator=(Vector&&);
     unsigned size() const;
     void push_back(const T& );
     void pop_back();
@@ -104,5 +106,6 @@ class Vector{
     void clear();
     Iterator begin();
     Iterator end();
+    void display();
 };
 
