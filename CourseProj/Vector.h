@@ -96,8 +96,8 @@ class Vector{
     const T& operator[](size_t) const;
     Vector& operator=(const Vector&);
     Vector& operator=(Vector&&);
-    unsigned size() const;
-    void push_back(const T& );
+    size_t size() const;
+    void push_back(const T&);
     void pop_back();
     void resize(size_t, T);
     bool empty() const;
