@@ -102,7 +102,7 @@ template<typename T> void Vector<T>::expand(size_t new_capacity){
     _capacity = new_capacity;
 }
 
-template<typename T> unsigned  Vector<T>::size() const{
+template<typename T> size_t Vector<T>::size() const{
 
     return _size;
 }
