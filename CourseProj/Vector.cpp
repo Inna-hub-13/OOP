@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdexcept>
 #include "Vector.h"
 
 using namespace std;
@@ -12,7 +13,7 @@ template<typename T> Vector<T>::Vector(){
 
 template<typename T> Vector<T>::Vector(const Vector& copy_vector){
 
-    _size = _capacity = copy_vector.size();
+    _size = _capacity = copy_vector._size;
     vector = new T[_capacity];
 
     unsigned i = 0;
@@ -41,11 +42,17 @@ template<typename T> Vector<T>::~Vector(){
 
 template<typename T> T& Vector<T>::operator[](size_t position){
 
+    if(position >= _size || position < 0) 
+        throw out_of_range("Index out of range\n");
+
     return *(vector + position);
 }
 
 
 template<typename T> const T& Vector<T>::operator[](size_t position) const{
+
+    if(position >= _size || position < 0) 
+        throw out_of_range("Index out of range\n");
 
     return *(vector + position);
 }
@@ -54,14 +61,14 @@ template<typename T> Vector<T>& Vector<T>::operator=(const Vector& right){
 
     if(this != &right){
 
-        if(right.size() > _capacity) {
+        if(right._size > _capacity) {
 
             delete[] vector;
-            vector = new T[right.size()];
-            _capacity = right.size();
+            vector = new T[right._size];
+            _capacity = right._size;
         }
 
-        _size = right.size();
+        _size = right._size;
 
         unsigned i = 0;
         for(;i < right._size; i++)
@@ -70,7 +77,6 @@ template<typename T> Vector<T>& Vector<T>::operator=(const Vector& right){
     }
 
     return *this;
-    
 }
 
 template<typename T> Vector<T>& Vector<T>::operator=(Vector&& right){
@@ -78,7 +84,7 @@ template<typename T> Vector<T>& Vector<T>::operator=(Vector&& right){
     if(this != &right){
 
         delete[] vector;
-         vector = right.vector;
+        vector = right.vector;
         _size = right._size;
         _capacity = right._capacity;
         right.vector = nullptr;
@@ -90,6 +96,9 @@ template<typename T> Vector<T>& Vector<T>::operator=(Vector&& right){
 }
 
 template<typename T> void Vector<T>::expand(size_t new_capacity){
+
+    if(new_capacity < 0) 
+        throw invalid_argument("Invalid argument for capacity\n");
 
     T* temp = new T[new_capacity];
 
@@ -124,6 +133,9 @@ template<typename T> void Vector<T>::pop_back(){
 
 template<typename T> void Vector<T>::resize(size_t new_size, T value){
 
+    if(new_size < 0) 
+        throw out_of_range("Index out of range\n");
+
     if(_size < new_size){
 
         if(new_size > _capacity)
@@ -144,11 +156,17 @@ template<typename T> bool Vector<T>::empty() const{
 
 template<typename T> T& Vector<T>::back(){
 
+    if(_size == 0) 
+        throw out_of_range("Index out of range\n");
+
     return *(vector + _size - 1);
 }
 
 template<typename T> const T& Vector<T>::back() const{
-
+    
+    if(_size == 0) 
+        throw out_of_range("Index out of range\n");
+    
     return *(vector + _size - 1);
 }
 
@@ -168,7 +186,6 @@ template<typename T> typename Vector<T>::Iterator Vector<T>::end(){
 }
 
 template<typename T> void Vector<T>::display(){
-
 
     if(empty()){
 
@@ -199,4 +216,16 @@ int main() {
     v2[1] = 22;
     v2.display();
     v.display();
+    v1.resize(2, 4);
+    v1.display();
+
+    try{
+        v1[1] = 4;
+        v.back();
+    }
+    catch(exception& e){
+
+        cout << "Caught: " << e.what();
+        cout << "Type: " << typeid(e).name() << endl;
+    }
 }
